@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         新疆工程学院寝室网络自动登录脚本
 // @namespace    your-namespace
-// @version      1.1
+// @version      1.0
 // @description  自动登录脚本示例
 // @match        http://36.189.241.20:9956/web
 // @grant        none
@@ -11,7 +11,7 @@
     'use strict';
 
     // 在这里填写你的用户名和密码
-    const username = '你的';
+    const username = '你的账号';
     const password = '密码';
 
     // 选择登录表单元素
