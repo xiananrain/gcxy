@@ -11,7 +11,7 @@
     'use strict';
 
     // 在这里填写你的用户名和密码
-    const username = '你的账号';
+    const username = '你的';
     const password = '密码';
 
     // 选择登录表单元素
