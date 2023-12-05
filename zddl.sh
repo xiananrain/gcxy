@@ -29,3 +29,22 @@ sleep 1
 
 # 模拟点击连接按钮
 curl -s -X POST -d "id=$connect_id" "$login_url"
+#!/bin/bash
+
+# 在这里填写你的用户名和密码
+username="g17881101711"
+password="123123"
+
+# 登录URL和表单数据
+login_url="http://36.189.241.20:9956/web"
+login_data="web-auth-user=$username&web-auth-password=$password"
+
+# 发送登录请求
+login_response=$(curl -sf -X POST -d "$login_data" "$login_url")
+
+# 设置连接按钮的ID
+connect_id="web-auth-connect"
+
+# 模拟点击连接按钮
+curl -sf -X POST -d "id=$connect_id" "$login_url"
+
