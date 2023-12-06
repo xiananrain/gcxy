@@ -1,8 +1,8 @@
 import requests
 
 # 在这里填写你的用户名和密码
-username = '你的账号'
-password = '密码'
+username = 'g17881101711'
+password = '123123'
 
 # 登录页面的 URL
 login_url = 'http://36.189.241.20:9956/web'
