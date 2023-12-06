@@ -18,7 +18,7 @@ def connect_disconnect_reconnect():
     response = requests.post('http://36.189.241.20:9956/web', data=login_data)
 
     # 延时一段时间后进行断开连接
-    time.sleep(3)
+    time.sleep(1)
 
     # 构造断开连接请求的数据
     disconnect_data = {
@@ -29,7 +29,7 @@ def connect_disconnect_reconnect():
     response = requests.post('http://36.189.241.20:9956/web', data=disconnect_data)
 
     # 延时一段时间后再次连接
-    time.sleep(3)
+    time.sleep(1)
     response = requests.post('http://36.189.241.20:9956/web', data=login_data)
 
 # 执行连接、断开连接和再次连接的操作
