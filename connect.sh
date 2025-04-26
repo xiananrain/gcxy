@@ -29,7 +29,7 @@ while true; do
         if [ -z "$userip" ]; then
             echo "无法获取 $wan_interface 接口的 IP 地址，请检查网络配置。"
         else
-            redirect_url="http://36.189.241.20:9956/?userip=$userip&wlanacname=&nasip=117.191.7.53&usermac=38-02-e3-0a-73-81"
+            redirect_url="http://36.189.241.20:9956/?userip=$userip&wlanacname=&nasip=117.191.7.53&usermac=mac地址"
             encoded_redirect_url=$(echo "$redirect_url" | sed 's/&/%26/g' | sed 's/:/%3A/g' | sed 's/\//%2F/g')
 
             curl 'http://36.189.241.20:9956/web/connect' \
