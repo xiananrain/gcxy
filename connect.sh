@@ -8,14 +8,14 @@ while true; do
     ping_status=$?
 
         # 假设 WAN 口为 eth0
-        wan_interface="eth0.2"
+        wan_interface="eth0"
 
     if [ $ping_status -ne 0 ]; then
         echo "无法 ping 通 baidu.com，正在重启 eth0 接口..."
         # 重启 eth0 接口
-        ifdown $wan_interface
+        ifdown wan
         sleep 5
-        ifup $wan_interface
+        ifup wan
 
         # 等待30s
         echo "等待30s后再次尝试..."
@@ -42,7 +42,7 @@ while true; do
               -H 'Referer: http://36.189.241.20:9956/web' \
               -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36' \
               -H 'X-Requested-With: XMLHttpRequest' \
-              --data-raw "web-auth-user=g17881101711&web-auth-password=123123&remember-credentials=false&redirect-url=$encoded_redirect_url" \
+              --data-raw "web-auth-user=账号&web-auth-password=123123&remember-credentials=false&redirect-url=$encoded_redirect_url" \
               --insecure
         fi
     else
