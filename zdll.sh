@@ -26,10 +26,10 @@ while true; do
 
 
         # 获取 WAN 口的 IP 地址
-        userip=$(ip -4 addr show $wanname | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
+        userip=$(ip -4 addr show $wan_interface | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
 
         if [ -z "$userip" ]; then
-            echo "无法获取 $wan_name 接口的 IP 地址，请检查网络配置。"
+            echo "无法获取 $wan_interface 接口的 IP 地址，请检查网络配置。"
         else
             redirect_url="http://36.189.241.20:9956/?userip=$userip&wlanacname=&nasip=117.191.7.53&usermac=$macdizhi"
             encoded_redirect_url=$(echo "$redirect_url" | sed 's/&/%26/g' | sed 's/:/%3A/g' | sed 's/\//%2F/g')
