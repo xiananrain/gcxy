@@ -12,6 +12,8 @@ while true; do
     zhanghao="账号"
     mima="123123"
     mac="mac地址"
+    # 定义一个固定的 b-user-id，可能需要自己去网页查看，如果你的认证门户每次都生成新的，可能需要动态获取
+    b_user_id="62e493eb-f655-a1a8-9549-c27f00348f5b"
 
     if [ $ping_status -ne 0 ]; then
 
@@ -33,7 +35,7 @@ while true; do
               -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
               -H 'Connection: keep-alive' \
               -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
-              -b "redirect-url=$redirect_url" \
+              -b "b-user-id=$b_user_id; redirect-url=$redirect_url" \
               -H 'Origin: http://36.189.241.20:9956' \
               -H 'Referer: http://36.189.241.20:9956/web' \
               -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36' \
