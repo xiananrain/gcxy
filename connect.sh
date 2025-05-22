@@ -19,8 +19,8 @@ while true; do
         ifdown wan
         ifup wan
 
-        # 等待30s
-        echo "等待30s后再次尝试..."
+        # 等待10s
+        echo "等待10s后发送post..."
         sleep 10
 
 
