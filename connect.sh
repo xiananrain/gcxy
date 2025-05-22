@@ -9,8 +9,8 @@ while true; do
 
         # 假设 WAN 口为 eth0
         wan_interface="eth0.2"
-        macdizhi="38-02-e3-0a-73-81"
-        zhanghao="g17881101711"
+        macdizhi="mac地址"
+        zhanghao="账号"
         mima="123123"
 
     if [ $ping_status -ne 0 ]; then
