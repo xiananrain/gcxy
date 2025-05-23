@@ -8,7 +8,8 @@ while true; do
     ping_status=$?
 
         # 假设 WAN 口为 eth0
-        wan_interface="eth0.2"
+        wan_interface="eth0"
+        #mac形式为xx-xx-xx
         macdizhi="mac地址"
         zhanghao="账号"
         mima="123123"
