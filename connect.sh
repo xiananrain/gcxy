@@ -16,7 +16,7 @@ while true; do
 
     if [ $ping_status -ne 0 ]; then
         echo "无法 ping 通 baidu.com，正在重启 wan 接口..."
-        # 重启 wan 接口
+        # 重启 wan 接口，刷新ip
         ifdown wan
         ifup wan
 
