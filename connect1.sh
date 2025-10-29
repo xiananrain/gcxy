@@ -13,7 +13,7 @@ while true; do
         macdizhi="24-12-E3"
         zhanghao="g1xxx"
         mima="123123"
-
+#检测网络连通性，使用ping
     if [ $ping_status -ne 0 ]; then
         echo "无法 ping 通 bing.com，正在重启 wan 接口..."
         # 重启 wan 接口，刷新ip
