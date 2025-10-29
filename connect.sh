@@ -53,5 +53,5 @@ while true; do
     fi
 
     echo "------------------------------"
-    sleep 1200  # 等待 20分钟再检查
+    sleep $CHECK_INTERVAL  # 等待 20分钟再检查
 done
