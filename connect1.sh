@@ -10,7 +10,7 @@ while true; do
         # 假设 WAN 口为 eth0
         wan_interface="wan"
         #mac形式为xx-xx-xx
-        macdizhi="38-02-E3-0A-73-81"
+        macdizhi="24-12-E3"
         zhanghao="g1xxx"
         mima="123123"
 
