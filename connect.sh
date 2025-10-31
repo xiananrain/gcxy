@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 配置参数（可根据实际情况修改）
-TARGET_URL="https://www.bing.com"
+TARGET_URL="http://www.baidu.com"
 wan_interface="wan"               # WAN接口名称
 macdizhi="xx-xx"      # 设备MAC地址
 zhanghao="g"           # 认证账号
