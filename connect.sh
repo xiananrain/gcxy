@@ -6,7 +6,7 @@ wan_interface="wan"               # WAN接口名称
 macdizhi="xx-xx"      # 设备MAC地址
 zhanghao="g"           # 认证账号
 mima="123123"                     # 认证密码
-CHECK_INTERVAL=600               # 检测间隔（秒），10分钟
+CHECK_INTERVAL=300               # 检测间隔（秒），5分钟
 RESTART_WAIT=10                   # 重启接口后等待时间（秒）
 
 while true; do
