@@ -1,23 +1,34 @@
 #!/bin/bash
 
 # 配置参数（可根据实际情况修改）
-TARGET_URL="http://www.baidu.com"
+TARGET_URLS=("http://www.baidu.com" "http://www.bing.com" "http://www.taobao.com")  # 三个检测地址
 wan_interface="wan"               # WAN接口名称
-macdizhi="xx-xx"      # 设备MAC地址
-zhanghao="g"           # 认证账号
+macdizhi="xx-xx"                  # 设备MAC地址
+zhanghao="g"                      # 认证账号
 mima="123123"                     # 认证密码
-CHECK_INTERVAL=300               # 检测间隔（秒），5分钟
+CHECK_INTERVAL=300                # 检测间隔（秒），5分钟
 RESTART_WAIT=10                   # 重启接口后等待时间（秒）
+TIMEOUT=3                         # 每个地址检测超时时间（秒）
 
 while true; do
     echo "开始网络检测：$(date)"
+    failed_count=0  # 记录无法访问的地址数量
 
-    # 检测网络连通性（使用curl判断）
-    curl -I -m 3 "$TARGET_URL" > /dev/null 2>&1
-    ping_status=$?  # 获取上一条命令的退出码（0为成功）
+    # 逐个检测目标地址
+    for url in "${TARGET_URLS[@]}"; do
+        echo "检测 $url..."
+        curl -I -m $TIMEOUT "$url" > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            echo "无法访问 $url"
+            ((failed_count++))
+        else
+            echo "成功访问 $url"
+        fi
+    done
 
-    if [ $ping_status -ne 0 ]; then
-        echo "无法访问 $TARGET_URL，正在重启 $wan_interface 接口..."
+    # 当所有地址都无法访问时，执行修复操作
+    if [ $failed_count -eq ${#TARGET_URLS[@]} ]; then
+        echo "所有目标地址均无法访问，正在重启 $wan_interface 接口..."
         
         # 重启WAN接口（需要root权限）
         ifdown "$wan_interface" > /dev/null 2>&1
@@ -49,9 +60,9 @@ while true; do
               --insecure
         fi
     else
-        echo "网络正常，无需操作。"
+        echo "网络正常（至少一个目标地址可访问），无需操作。"
     fi
 
     echo "------------------------------"
-    sleep $CHECK_INTERVAL  # 等待 20分钟再检查
+    sleep $CHECK_INTERVAL  # 等待指定间隔后再次检查
 done
