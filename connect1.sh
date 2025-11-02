@@ -3,19 +3,30 @@
 while true; do
     echo "开始网络检测：$(date)"
 
-    # 尝试 ping bing.com
-    ping -c 1 bing.com > /dev/null 2>&1
-    ping_status=$?
+    # 定义要 ping 的三个地址
+    ping_targets=("baidu.com" "qq.com" "apple.com")
+    ping_success=0  # 标记是否有成功的 ping
 
-        # 假设 WAN 口为 eth0
-        wan_interface="wan"
-        #mac形式为xx-xx-xx
-        macdizhi="24-12-E3"
-        zhanghao="g1xxx"
-        mima="123123"
-#检测网络连通性，使用ping
-    if [ $ping_status -ne 0 ]; then
-        echo "无法 ping 通 bing.com，正在重启 wan 接口..."
+    # 逐个检测每个地址
+    for target in "${ping_targets[@]}"; do
+        ping -c 3 "$target" > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo "$target  ping 通，网络正常"
+            ping_success=1
+            break  # 只要有一个通就退出循环
+        fi
+    done
+
+    # 定义WAN 口 
+    wan_interface="wan"
+    #mac形式为xx-xx-xx
+    macdizhi="12-xx"
+    zhanghao="g"
+    mima="123123"
+
+    # 所有地址都 ping 不通时执行操作
+    if [ $ping_success -eq 0 ]; then
+        echo "所有目标地址均无法 ping 通，正在重启 wan 接口..."
         # 重启 wan 接口，刷新ip
         ifdown wan
         ifup wan
@@ -23,8 +34,6 @@ while true; do
         # 等待10s
         echo "等待10s后发送post..."
         sleep 10
-
-
 
         # 获取 WAN 口的 IP 地址
         userip=$(ip -4 addr show $wan_interface | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
