@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # 配置参数（可根据实际情况修改）
-TARGET_URLS=("http://www.baidu.com" "http://www.bing.com" "http://www.taobao.com")  # 三个检测地址
+TARGET_URLS=("https://www.baidu.com" "https://www.qq.com" "https://douyin.com")  # 三个检测地址
 wan_interface="wan"               # WAN接口名称
-macdizhi="xx-xx"                  # 设备MAC地址
-zhanghao="g"                      # 认证账号
+macdizhi="xx-xx"      # 设备MAC地址
+zhanghao="g"            # 认证账号
 mima="123123"                     # 认证密码
-CHECK_INTERVAL=300                # 检测间隔（秒），5分钟
+MIN_INTERVAL=120                  # 最小检测间隔（秒），2分钟
+MAX_INTERVAL=300                  # 最大检测间隔（秒），5分钟
 RESTART_WAIT=10                   # 重启接口后等待时间（秒）
 TIMEOUT=3                         # 每个地址检测超时时间（秒）
 
@@ -63,6 +64,9 @@ while true; do
         echo "网络正常（至少一个目标地址可访问），无需操作。"
     fi
 
+    # 计算随机间隔时间（在MIN和MAX之间）
+    RANDOM_INTERVAL=$((MIN_INTERVAL + RANDOM % (MAX_INTERVAL - MIN_INTERVAL + 1)))
+    echo "等待 $RANDOM_INTERVAL 秒后再次检查..."
     echo "------------------------------"
-    sleep $CHECK_INTERVAL  # 等待指定间隔后再次检查
+    sleep $RANDOM_INTERVAL  # 等待随机间隔后再次检查
 done
