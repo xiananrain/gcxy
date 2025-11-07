@@ -13,7 +13,7 @@ TIMEOUT=3                         # 每个地址检测超时时间（秒）
 LOG_FILE="/var/log/network_monitor.log"  # 日志文件路径（可自定义）
 
 # 确保日志文件存在并设置权限
-touch "$LOG_FILE"
+> "$LOG_FILE"  # 直接清空日志文件
 chmod 644 "$LOG_FILE"
 
 # 日志输出函数：同时打印到终端和日志文件
