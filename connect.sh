@@ -12,9 +12,6 @@ RESTART_WAIT=10                   # 重启接口后等待时间（秒）
 TIMEOUT=3                         # 每个地址检测超时时间（秒）
 LOG_FILE="/var/log/network_monitor.log"  # 日志文件路径（可自定义）
 
-# 确保日志文件存在并设置权限
-> "$LOG_FILE"  # 直接清空日志文件
-chmod 644 "$LOG_FILE"
 
 # 日志输出函数：同时打印到终端和日志文件
 log() {
@@ -24,6 +21,9 @@ log() {
 }
 
 while true; do
+    # 确保日志文件存在并设置权限
+    > "$LOG_FILE"  # 直接清空日志文件
+    chmod 644 "$LOG_FILE"
     log "开始网络检测"
     failed_count=0  # 记录无法访问的地址数量
 
