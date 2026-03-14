@@ -18,9 +18,9 @@ while true; do
     done
 
     # 定义WAN 口 
-    wan_interface="wan"
-    zhanghao="g"
-    mima="123123"
+    wan_interface="wan"   #(可能需要自定义)
+    zhanghao="g"          #(可能需要自定义)
+    mima="123123"         #(可能需要自定义，一般是123123)
 
     # 所有地址都 ping 不通时执行操作
     if [ $ping_success -eq 0 ]; then
