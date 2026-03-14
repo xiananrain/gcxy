@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # 配置参数（可根据实际情况修改）
-TARGET_URLS=("https://www.baidu.com" "https://www.qq.com" "https://www.douyin.com")  # 三个检测地址
+TARGET_URLS="https://www.baidu.com https://www.qq.com https://saas.sin.fan"  # 三个检测地址
+URL_COUNT=3  # URL 数量，和上面的地址数保持一致
 wan_interface="wan"               # WAN接口名称
-macdizhi="xx-xx"      # 设备MAC地址
-zhanghao="g"            # 认证账号
+zhanghao="g13659972439"            # 认证账号
 mima="123123"                     # 认证密码
-MIN_INTERVAL=120                 # 最小检测间隔（秒），2分钟
-MAX_INTERVAL=240                 # 最大检测间隔（秒），4分钟
+MIN_INTERVAL=240                  # 最小检测间隔（秒），4分钟
+MAX_INTERVAL=600                  # 最大检测间隔（秒），10分钟
 RESTART_WAIT=10                   # 重启接口后等待时间（秒）
 TIMEOUT=3                         # 每个地址检测超时时间（秒）
-LOG_FILE="/var/log/network_monitor.log"  # 日志文件路径（可自定义）
+LOG_FILE="/etc/connect/connect.log"  # 日志文件路径（可自定义）
 
 
 # 日志输出函数：同时打印到终端和日志文件
@@ -21,14 +21,14 @@ log() {
 }
 
 while true; do
-    # 确保日志文件存在并设置权限
-    > "$LOG_FILE"  # 直接清空日志文件
+    > "$LOG_FILE"
     chmod 644 "$LOG_FILE"
+
     log "开始网络检测"
     failed_count=0  # 记录无法访问的地址数量
 
     # 逐个检测目标地址
-    for url in "${TARGET_URLS[@]}"; do
+        for url in $TARGET_URLS; do
         log "检测 $url..."
         curl -I -m "$TIMEOUT" "$url" > /dev/null 2>&1
         if [ $? -ne 0 ]; then
@@ -40,7 +40,7 @@ while true; do
     done
 
     # 当所有地址都无法访问时，执行修复操作
-    if [ $failed_count -eq ${#TARGET_URLS[@]} ]; then
+    if [ $failed_count -eq $URL_COUNT ]; then
         log "所有目标地址均无法访问，正在重启 $wan_interface 接口..."
         
         # 重启WAN接口（需要root权限）
@@ -61,13 +61,14 @@ while true; do
         log "等待 $RESTART_WAIT 秒后准备认证..."
         sleep "$RESTART_WAIT"
 
-        # 获取 WAN 口的 IP 地址
+        # 获取 WAN 口的 IP 地址和 MAC 地址
         userip=$(ip -4 addr show "$wan_interface" | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
+        macdizhi=$(ip link show "$wan_interface" | awk '/link\/ether/ {print $2}' | tr '[:lower:]' '[:upper:]' | tr ':' '-')
 
-        if [ -z "$userip" ]; then
-            log "无法获取 $wan_interface 接口的 IP 地址，请检查网络配置。"
+        if [ -z "$userip" ] || [ -z "$macdizhi" ]; then
+            log "无法获取 $wan_interface 接口的 IP 或 MAC 地址，请检查网络配置。"
         else
-            log "获取到 $wan_interface 接口 IP 地址：$userip"
+            log "获取到 $wan_interface 接口 IP 地址：$userip, MAC 地址：$macdizhi"
             redirect_url="http://36.189.241.20:9956/?userip=$userip&wlanacname=&nasip=117.191.7.53&usermac=$macdizhi"
             encoded_redirect_url=$(echo "$redirect_url" | sed 's/&/%26/g' | sed 's/:/%3A/g' | sed 's/\//%2F/g')
 
