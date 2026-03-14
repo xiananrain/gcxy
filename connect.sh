@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 配置参数（可根据实际情况修改）
-TARGET_URLS="https://www.baidu.com https://www.qq.com https://saas.sin.fan"  # 三个检测地址
+TARGET_URLS="https://www.baidu.com https://www.qq.com https://www.douyin.com"  # 三个检测地址
 URL_COUNT=3  # URL 数量，和上面的地址数保持一致
 wan_interface="wan"               # WAN接口名称
 zhanghao="gxx"            # 认证账号
