@@ -19,8 +19,6 @@ while true; do
 
     # 定义WAN 口 
     wan_interface="wan"
-    #mac形式为xx-xx-xx
-    macdizhi="12-xx"
     zhanghao="g"
     mima="123123"
 
@@ -28,19 +26,21 @@ while true; do
     if [ $ping_success -eq 0 ]; then
         echo "所有目标地址均无法 ping 通，正在重启 wan 接口..."
         # 重启 wan 接口，刷新ip
-        ifdown wan
-        ifup wan
+        ifdown "$wan_interface"
+        ifup "$wan_interface"
 
         # 等待10s
         echo "等待10s后发送post..."
         sleep 10
 
-        # 获取 WAN 口的 IP 地址
-        userip=$(ip -4 addr show $wan_interface | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
+        # 获取 WAN 口的 IP 地址和 MAC 地址
+        userip=$(ip -4 addr show "$wan_interface" | grep -oE 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | awk '{print $2}' | head -n 1)
+        macdizhi=$(ip link show "$wan_interface" | awk '/link\/ether/ {print $2}' | tr '[:lower:]' '[:upper:]' | tr ':' '-')
 
-        if [ -z "$userip" ]; then
-            echo "无法获取 $wan_interface 接口的 IP 地址，请检查网络配置。"
+        if [ -z "$userip" ] || [ -z "$macdizhi" ]; then
+            echo "无法获取 $wan_interface 接口的 IP 或 MAC 地址，请检查网络配置。"
         else
+            echo "获取到 $wan_interface 接口 IP 地址：$userip, MAC 地址：$macdizhi"
             redirect_url="http://36.189.241.20:9956/?userip=$userip&wlanacname=&nasip=117.191.7.53&usermac=$macdizhi"
             encoded_redirect_url=$(echo "$redirect_url" | sed 's/&/%26/g' | sed 's/:/%3A/g' | sed 's/\//%2F/g')
 
