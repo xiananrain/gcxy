@@ -4,8 +4,8 @@
 TARGET_URLS="https://www.baidu.com https://www.qq.com https://saas.sin.fan"  # 三个检测地址
 URL_COUNT=3  # URL 数量，和上面的地址数保持一致
 wan_interface="wan"               # WAN接口名称
-zhanghao="g13659972439"            # 认证账号
-mima="123123"                     # 认证密码
+zhanghao="gxx"            # 认证账号
+mima="123123"                     # 认证密码（一般是123123）
 MIN_INTERVAL=240                  # 最小检测间隔（秒），4分钟
 MAX_INTERVAL=600                  # 最大检测间隔（秒），10分钟
 RESTART_WAIT=10                   # 重启接口后等待时间（秒）
