@@ -2,7 +2,7 @@
 自己把它添加到开机自启，本脚本设置了120s自动检测，然后修改某些配置，比如账号,密码等，
 nasip我也不知道是啥，可能也要f12查看\
 (sleep 30 && /path/to/your/script.sh) &
-\
-![image]([https://github.com/user-attachments/assets/xxxx-xxxx-xxxx](https://github.com/xiananrain/gcxy/blob/main/png/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-03-29%20122717.png))
+
+![image]([https://github.com/user-attachments/assets/xxxx-xxxx-xxxx](https://github.com/xiananrain/gcxy/blob/main/png/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-03-29%20122717.png)
 \
 使用上面这段脚本放到启动项exit 0前面，相当于延迟30s启动
