@@ -3,6 +3,6 @@
 nasip我也不知道是啥，可能也要f12查看\
 (sleep 30 && /path/to/your/script.sh) &
 \
-<img width="300" src="../png/屏幕截图 2026-03-29 122717.png" alt="Preview">
+![image](https://github.com/user-attachments/assets/xxxx-xxxx-xxxx)
 \
 使用上面这段脚本放到启动项exit 0前面，相当于延迟30s启动
